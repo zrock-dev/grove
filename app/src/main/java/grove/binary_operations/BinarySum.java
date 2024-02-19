@@ -31,7 +31,7 @@ public class BinarySum implements BinaryOperable {
         while (i >= 0) {
             stringBuilder.append(sum[i--]);
         }
-        return Long.parseLong(stringBuilder.toString());
+        return Integer.parseInt(stringBuilder.toString());
     }
 
     @Override

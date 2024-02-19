@@ -38,4 +38,9 @@ public class SumTest {
     public void testLargeBinarySum() {
         assertEquals(110000010, binarySum.make(10000000, 100000010));
     }
+
+    @Test
+    public void testLargerBinarySum() {
+        assertEquals(1111110100, binarySum.make(0, 1011100, 10111000, 0, 1011100000));
+    }
 }
