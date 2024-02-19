@@ -26,11 +26,16 @@ public class MultiplicationTest {
 
     @Test
     public void testLargeBinaryMultiplication() {
-        assertEquals(11111100, binaryMultiplication.make(11110, 111));
+        assertEquals(11010010, binaryMultiplication.make(11110, 111));
     }
 
     @Test
     public void testMultiplicationByOne() {
         assertEquals(1001111, binaryMultiplication.make(1001111, 1));
+    }
+
+    @Test
+    public void testLargerMultiplication() {
+        assertEquals(10110111110L, binaryMultiplication.make(11110, 111, 111));
     }
 }
