@@ -31,7 +31,7 @@ public class SumTest {
 
     @Test
     public void testDifferentLengthAndCarryBinarySum() {
-        assertEquals(10001, binarySum.make(1111, 1));
+        assertEquals(10000, binarySum.make(1111, 1));
     }
 
     @Test
