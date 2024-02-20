@@ -31,7 +31,7 @@ public class SubtractionTest {
 
     @Test
     public void testLargeBinarySubtraction() {
-        assertEquals(100001, binarySubtraction.make(1101010, 1011));
+        assertEquals(1011111, binarySubtraction.make(1101010, 1011));
     }
 
 }
