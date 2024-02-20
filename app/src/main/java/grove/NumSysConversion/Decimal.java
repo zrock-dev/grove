@@ -1,5 +1,7 @@
 package grove.NumSysConversion;
 
+import grove.NumSysConversion.Converters.DecimalConverter;
+
 public class Decimal implements DecimalConverter {
     @Override
     public String decimalToBinary(long decimal) {
@@ -45,10 +47,5 @@ public class Decimal implements DecimalConverter {
         }
         stringBuilder = new StringBuilder(hexadecimal);
         return stringBuilder.reverse().toString();
-    }
-
-    public static void main(String[] args) {
-        Decimal decimal = new Decimal();
-        System.out.println(decimal.decimalToHexadecimal(1232131));
     }
 }

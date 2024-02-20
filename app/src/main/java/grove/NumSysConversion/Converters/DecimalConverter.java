@@ -1,4 +1,4 @@
-package grove.NumSysConversion;
+package grove.NumSysConversion.Converters;
 
 public interface DecimalConverter {
     String decimalToBinary(long decimal);
