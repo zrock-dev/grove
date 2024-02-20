@@ -1,6 +1,7 @@
 package grove.NumSysConversion;
 
 import grove.NumSysConversion.Converters.HexadecimalConverter;
+import grove.NumSysConversion.Utils.ConversionValidator;
 
 public class Hexadecimal implements HexadecimalConverter {
     private final Decimal decimal;
@@ -11,6 +12,7 @@ public class Hexadecimal implements HexadecimalConverter {
 
     @Override
     public long hexadecimalToDecimal(String hexadecimal) {
+        validateHexadecimalValue(hexadecimal);
         long decimal = 0;
         int pow = 0;
         for (int i = hexadecimal.length() - 1; i >= 0; i--) {
@@ -27,12 +29,14 @@ public class Hexadecimal implements HexadecimalConverter {
 
     @Override
     public String hexadecimalToBinary(String hexadecimal) {
+        validateHexadecimalValue(hexadecimal);
         long decimal = hexadecimalToDecimal(hexadecimal);
         return this.decimal.decimalToBinary((int) decimal);
     }
 
     @Override
     public String hexadecimalToOctal(String hexadecimal) {
+        validateHexadecimalValue(hexadecimal);
         long decimal = hexadecimalToDecimal(hexadecimal);
         return this.decimal.decimalToOctal(decimal);
     }
@@ -45,5 +49,10 @@ public class Hexadecimal implements HexadecimalConverter {
             initChar++;
         }
         return count;
+    }
+
+    private void validateHexadecimalValue(String hexadecimal) {
+        ConversionValidator.validateEmptyOrNullString(hexadecimal);
+        ConversionValidator.validateHexadecimalValue(hexadecimal);
     }
 }

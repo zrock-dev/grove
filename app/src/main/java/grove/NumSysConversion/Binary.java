@@ -1,6 +1,7 @@
 package grove.NumSysConversion;
 
 import grove.NumSysConversion.Converters.BinaryConverter;
+import grove.NumSysConversion.Utils.ConversionValidator;
 
 public class Binary implements BinaryConverter {
     private final Decimal decimal;
@@ -11,6 +12,7 @@ public class Binary implements BinaryConverter {
 
     @Override
     public long binaryToDecimal(String binary) {
+        validateBinary(binary);
         long decimal = 0;
         int length = binary.length();
         for (int i = 0; i < length; i++) {
@@ -24,13 +26,20 @@ public class Binary implements BinaryConverter {
 
     @Override
     public String binaryToOctal(String binary) {
+        validateBinary(binary);
         long decimal = binaryToDecimal(binary);
         return Long.toOctalString(decimal);
     }
 
     @Override
     public String binaryToHexadecimal(String binary) {
+        validateBinary(binary);
         long decimal = binaryToDecimal(binary);
         return this.decimal.decimalToHexadecimal(decimal);
+    }
+
+    private void validateBinary(String binary) {
+        ConversionValidator.validateEmptyOrNullString(binary);
+        ConversionValidator.validateBinaryValue(binary);
     }
 }

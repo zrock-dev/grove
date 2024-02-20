@@ -1,6 +1,7 @@
 package grove.NumSysConversion;
 
 import grove.NumSysConversion.Converters.OctalConverter;
+import grove.NumSysConversion.Utils.ConversionValidator;
 
 public class Octal implements OctalConverter {
     private final Decimal decimal;
@@ -11,6 +12,7 @@ public class Octal implements OctalConverter {
 
     @Override
     public long octalToDecimal(long octal) {
+        ConversionValidator.validateOctalValue(octal);
         long decimal = 0;
         int pow = 0;
         while (octal != 0) {
@@ -25,12 +27,14 @@ public class Octal implements OctalConverter {
 
     @Override
     public String octalToBinary(long octal) {
+        ConversionValidator.validateOctalValue(octal);
         long decimal = octalToDecimal(octal);
         return this.decimal.decimalToBinary(decimal);
     }
 
     @Override
     public String octalToHexadecimal(long octal) {
+        ConversionValidator.validateOctalValue(octal);
         long decimal = octalToDecimal(octal);
         return this.decimal.decimalToHexadecimal(decimal);
     }
