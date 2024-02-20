@@ -26,7 +26,12 @@ public class DivisionTest {
 
     @Test
     public void testLargeBinaryDivision() {
-        assertEquals(101, binaryDivision.make(10101, 10));
+        assertEquals(1010, binaryDivision.make(10101, 10));
+    }
+
+    @Test
+    public void testLargerBinaryDivision() {
+        assertEquals(101, binaryDivision.make(10101, 10, 10));
     }
 
 }
