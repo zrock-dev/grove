@@ -1,11 +1,10 @@
 package grove.NumSysConversion;
 
-import grove.NumSysConversion.Converters.DecimalConverter;
+import grove.NumSysConversion.Converters.Conversion;
 import grove.NumSysConversion.Utils.ConversionValidator;
 
-public class Decimal implements DecimalConverter {
-    @Override
-    public String decimalToBinary(long decimal) {
+public class Decimal implements Conversion {
+    private String decimalToBinary(long decimal) {
         ConversionValidator.validateNonNegative(decimal);
         if (decimal == 0) return "0";
         StringBuilder stringBuilder;
@@ -18,8 +17,7 @@ public class Decimal implements DecimalConverter {
         return stringBuilder.reverse().toString();
     }
 
-    @Override
-    public String decimalToOctal(long decimal) {
+    private String decimalToOctal(long decimal) {
         ConversionValidator.validateNonNegative(decimal);
         StringBuilder stringBuilder;
         if (decimal > 8) {
@@ -36,8 +34,7 @@ public class Decimal implements DecimalConverter {
         }
     }
 
-    @Override
-    public String decimalToHexadecimal(long decimal) {
+    private String decimalToHexadecimal(long decimal) {
         ConversionValidator.validateNonNegative(decimal);
         if (decimal == 0) return "0";
         StringBuilder stringBuilder;
@@ -50,5 +47,13 @@ public class Decimal implements DecimalConverter {
         }
         stringBuilder = new StringBuilder(hexadecimal);
         return stringBuilder.reverse().toString();
+    }
+
+    @Override
+    public String makeConversion(int targetBase, String value) {
+        if (targetBase == 2) return decimalToBinary(Long.parseLong(value));
+        else if (targetBase == 8) return decimalToOctal(Long.parseLong(value));
+        else if (targetBase == 16) return decimalToHexadecimal(Long.parseLong(value));
+        return "Invalid target base";
     }
 }

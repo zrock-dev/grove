@@ -11,31 +11,31 @@ public class DecimalTest {
 
     @Test
     public void testDecimalToBinary() {
-        assertEquals("1010", decimal.decimalToBinary(10));
-        assertEquals("1111", decimal.decimalToBinary(15));
-        assertEquals("100110", decimal.decimalToBinary(38));
-        assertThrows(IllegalArgumentException.class, () -> decimal.decimalToBinary(-10));
+        assertEquals("1010", decimal.makeConversion(2, "10"));
+        assertEquals("1111", decimal.makeConversion(2, "15"));
+        assertEquals("100110", decimal.makeConversion(2, "38"));
+        assertThrows(IllegalArgumentException.class, () -> decimal.makeConversion(2, "-10"));
     }
 
     @Test
     public void testDecimalToOctal() {
-        assertEquals("12", decimal.decimalToOctal(10));
-        assertEquals("17", decimal.decimalToOctal(15));
-        assertEquals("46", decimal.decimalToOctal(38));
-        assertThrows(IllegalArgumentException.class, () -> decimal.decimalToOctal(-10));
+        assertEquals("12", decimal.makeConversion(8, "10"));
+        assertEquals("17", decimal.makeConversion(8, "15"));
+        assertEquals("46", decimal.makeConversion(8, "38"));
+        assertThrows(IllegalArgumentException.class, () -> decimal.makeConversion(8, "-10"));
     }
 
     @Test
     public void testDecimalToHexadecimal() {
-        assertEquals("A", decimal.decimalToHexadecimal(10));
-        assertEquals("F", decimal.decimalToHexadecimal(15));
-        assertEquals("26", decimal.decimalToHexadecimal(38));
-        assertThrows(IllegalArgumentException.class, () -> decimal.decimalToHexadecimal(-10));
+        assertEquals("A", decimal.makeConversion(16, "10"));
+        assertEquals("F", decimal.makeConversion(16, "15"));
+        assertEquals("26", decimal.makeConversion(16, "38"));
+        assertThrows(IllegalArgumentException.class, () -> decimal.makeConversion(16, "-10"));
     }
 
     @Test
     public void testDecimalException() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> decimal.decimalToBinary(-10));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> decimal.makeConversion(2, "-10"));
         String expectedMessage = "The number can not be negative.";
         String actualMessage = exception.getMessage();
         assertEquals(expectedMessage, actualMessage);

@@ -11,35 +11,35 @@ public class HexadecimalTest {
 
     @Test
     public void testHexadecimalToDecimal() {
-        assertEquals(255, hexadecimal.hexadecimalToDecimal("FF"));
-        assertEquals(16, hexadecimal.hexadecimalToDecimal("10"));
+        assertEquals("255", hexadecimal.makeConversion(10, "FF"));
+        assertEquals("16", hexadecimal.makeConversion(10, "10"));
     }
 
     @Test
     public void testHexadecimalToBinary() {
-        assertEquals("11111111", hexadecimal.hexadecimalToBinary("FF"));
-        assertEquals("10000", hexadecimal.hexadecimalToBinary("10"));
+        assertEquals("11111111", hexadecimal.makeConversion(2, "FF"));
+        assertEquals("10000", hexadecimal.makeConversion(2, "10"));
     }
 
     @Test
     public void testHexadecimalToOctal() {
-        assertEquals("377", hexadecimal.hexadecimalToOctal("FF"));
-        assertEquals("20", hexadecimal.hexadecimalToOctal("10"));
+        assertEquals("377", hexadecimal.makeConversion(8, "FF"));
+        assertEquals("20", hexadecimal.makeConversion(8, "10"));
     }
 
     @Test
     public void testHexadecimalException() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> hexadecimal.hexadecimalToDecimal("G"));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> hexadecimal.makeConversion(2, "G"));
         String expectedMessage = "The hexadecimal string can only contain the characters '0' to '9' and 'A' to 'F'.";
         String actualMessage = exception.getMessage();
         assertEquals(expectedMessage, actualMessage);
 
-        exception = assertThrows(IllegalArgumentException.class, () -> hexadecimal.hexadecimalToDecimal(""));
+        exception = assertThrows(IllegalArgumentException.class, () -> hexadecimal.makeConversion(2, ""));
         expectedMessage = "The value can not be null or empty.";
         actualMessage = exception.getMessage();
         assertEquals(expectedMessage, actualMessage);
 
-        exception = assertThrows(IllegalArgumentException.class, () -> hexadecimal.hexadecimalToDecimal(null));
+        exception = assertThrows(IllegalArgumentException.class, () -> hexadecimal.makeConversion(2, null));
         expectedMessage = "The value can not be null or empty.";
         actualMessage = exception.getMessage();
         assertEquals(expectedMessage, actualMessage);

@@ -1,17 +1,16 @@
 package grove.NumSysConversion;
 
-import grove.NumSysConversion.Converters.OctalConverter;
+import grove.NumSysConversion.Converters.Conversion;
 import grove.NumSysConversion.Utils.ConversionValidator;
 
-public class Octal implements OctalConverter {
+public class Octal implements Conversion {
     private final Decimal decimal;
 
     public Octal() {
         decimal = new Decimal();
     }
 
-    @Override
-    public long octalToDecimal(long octal) {
+    private long octalToDecimal(long octal) {
         ConversionValidator.validateOctalValue(octal);
         long decimal = 0;
         int pow = 0;
@@ -25,17 +24,23 @@ public class Octal implements OctalConverter {
         return decimal;
     }
 
-    @Override
-    public String octalToBinary(long octal) {
+    private String octalToBinary(long octal) {
         ConversionValidator.validateOctalValue(octal);
         long decimal = octalToDecimal(octal);
-        return this.decimal.decimalToBinary(decimal);
+        return this.decimal.makeConversion(2, String.valueOf(decimal));
+    }
+
+    private String octalToHexadecimal(long octal) {
+        ConversionValidator.validateOctalValue(octal);
+        long decimal = octalToDecimal(octal);
+        return this.decimal.makeConversion(16, String.valueOf(decimal));
     }
 
     @Override
-    public String octalToHexadecimal(long octal) {
-        ConversionValidator.validateOctalValue(octal);
-        long decimal = octalToDecimal(octal);
-        return this.decimal.decimalToHexadecimal(decimal);
+    public String makeConversion(int targetBase, String value) {
+        if (targetBase == 10) return String.valueOf(octalToDecimal(Long.parseLong(value)));
+        else if (targetBase == 2) return octalToBinary(Long.parseLong(value));
+        else if (targetBase == 16) return octalToHexadecimal(Long.parseLong(value));
+        return "Invalid target base";
     }
 }

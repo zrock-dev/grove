@@ -1,17 +1,16 @@
 package grove.NumSysConversion;
 
-import grove.NumSysConversion.Converters.BinaryConverter;
+import grove.NumSysConversion.Converters.Conversion;
 import grove.NumSysConversion.Utils.ConversionValidator;
 
-public class Binary implements BinaryConverter {
+public class Binary implements Conversion {
     private final Decimal decimal;
 
     public Binary() {
         decimal = new Decimal();
     }
 
-    @Override
-    public long binaryToDecimal(String binary) {
+    private String binaryToDecimal(String binary) {
         validateBinary(binary);
         long decimal = 0;
         int length = binary.length();
@@ -21,25 +20,31 @@ public class Binary implements BinaryConverter {
                 decimal += (long) Math.pow(2, i);
             }
         }
-        return decimal;
+        return Long.toString(decimal);
     }
 
-    @Override
-    public String binaryToOctal(String binary) {
+    private String binaryToOctal(String binary) {
         validateBinary(binary);
-        long decimal = binaryToDecimal(binary);
+        long decimal = Long.parseLong(binaryToDecimal(binary));
         return Long.toOctalString(decimal);
     }
 
-    @Override
-    public String binaryToHexadecimal(String binary) {
+    private String binaryToHexadecimal(String binary) {
         validateBinary(binary);
-        long decimal = binaryToDecimal(binary);
-        return this.decimal.decimalToHexadecimal(decimal);
+        long decimal = Long.parseLong(binaryToDecimal(binary));
+        return this.decimal.makeConversion( 16, Long.toString(decimal));
     }
 
     private void validateBinary(String binary) {
         ConversionValidator.validateEmptyOrNullString(binary);
         ConversionValidator.validateBinaryValue(binary);
+    }
+
+    @Override
+    public String makeConversion(int targetBase, String value) {
+        if (targetBase == 10) return binaryToDecimal(value);
+        if (targetBase == 8) return binaryToOctal(value);
+        if (targetBase == 16) return binaryToHexadecimal(value);
+        return "Invalid target base";
     }
 }

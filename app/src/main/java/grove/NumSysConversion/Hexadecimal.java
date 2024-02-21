@@ -1,17 +1,16 @@
 package grove.NumSysConversion;
 
-import grove.NumSysConversion.Converters.HexadecimalConverter;
+import grove.NumSysConversion.Converters.Conversion;
 import grove.NumSysConversion.Utils.ConversionValidator;
 
-public class Hexadecimal implements HexadecimalConverter {
+public class Hexadecimal implements Conversion {
     private final Decimal decimal;
 
     public Hexadecimal() {
         decimal = new Decimal();
     }
 
-    @Override
-    public long hexadecimalToDecimal(String hexadecimal) {
+    private String hexadecimalToDecimal(String hexadecimal) {
         validateHexadecimalValue(hexadecimal);
         long decimal = 0;
         int pow = 0;
@@ -24,21 +23,19 @@ public class Hexadecimal implements HexadecimalConverter {
             }
             pow++;
         }
-        return decimal;
+        return Long.toString(decimal);
     }
 
-    @Override
-    public String hexadecimalToBinary(String hexadecimal) {
+    private String hexadecimalToBinary(String hexadecimal) {
         validateHexadecimalValue(hexadecimal);
-        long decimal = hexadecimalToDecimal(hexadecimal);
-        return this.decimal.decimalToBinary((int) decimal);
+        long decimal = Long.parseLong(hexadecimalToDecimal(hexadecimal));
+        return this.decimal.makeConversion(2, String.valueOf(decimal));
     }
 
-    @Override
-    public String hexadecimalToOctal(String hexadecimal) {
+    private String hexadecimalToOctal(String hexadecimal) {
         validateHexadecimalValue(hexadecimal);
-        long decimal = hexadecimalToDecimal(hexadecimal);
-        return this.decimal.decimalToOctal(decimal);
+        long decimal = Long.parseLong(hexadecimalToDecimal(hexadecimal));
+        return this.decimal.makeConversion(8, String.valueOf(decimal));
     }
 
     private long getIndexLetter(char letter) {
@@ -54,5 +51,13 @@ public class Hexadecimal implements HexadecimalConverter {
     private void validateHexadecimalValue(String hexadecimal) {
         ConversionValidator.validateEmptyOrNullString(hexadecimal);
         ConversionValidator.validateHexadecimalValue(hexadecimal);
+    }
+
+    @Override
+    public String makeConversion(int targetBase, String value) {
+        if (targetBase == 10) return hexadecimalToDecimal(value);
+        else if (targetBase == 2) return hexadecimalToBinary(value);
+        else if (targetBase == 8) return hexadecimalToOctal(value);
+        return "Invalid target base";
     }
 }
